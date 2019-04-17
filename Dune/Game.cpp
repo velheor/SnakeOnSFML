@@ -1,4 +1,5 @@
 ﻿#include <SFML/Graphics.hpp>
+#include <sstream>
 #include <time.h>
 #include "Map.h"
 
@@ -57,10 +58,19 @@ int main()
 {
 	srand(time(0));
 
-	RenderWindow window(VideoMode(w, h), "Dune");
+	RenderWindow window(VideoMode(600, 400), "Dune");
+
+	Font font;
+	font.loadFromFile("arial.ttf");
+	Text text("", font, 20);
+	text.setFillColor(Color::White);
+	text.setStyle(sf::Text::Bold);
+	Text text1("", font, 20);
+	text1.setFillColor(Color::Red);
+	text1.setStyle(sf::Text::Bold);
 
 	Texture t1, t2, t3, t4;
-	t1.loadFromFile("images/white.png");
+	t1.loadFromFile("images/White.png");
 	t2.loadFromFile("images/Head.png");
 	t3.loadFromFile("images/Tail.png");
 	t4.loadFromFile("images/red.png");
@@ -78,6 +88,8 @@ int main()
 
 	while (window.isOpen())
 	{
+		
+
 		float time = clock.getElapsedTime().asSeconds();
 		clock.restart();
 		timer += time;
@@ -123,13 +135,26 @@ int main()
 		////// draw  ///////
 		window.clear();
 
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++)
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < N; j++)
 			{
-				if (TileMap[i][j] == ' ')  sprite1.setPosition(i*size, j*size); //если встретили символ пробел, то рисуем 1й квадратик
-				/*if (TileMap[i][j] == 's')  s_map.setTextureRect(IntRect(32, 0, 32, 32));//если встретили символ s, то рисуем 2й квадратик
-				if ((TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));//если встретили символ 0, то рисуем 3й квадратик
-				sprite1.setPosition(i*size, j*size);  window.draw(sprite1);*/
+				if (TileMap[i][j] == ' ') 
+				{
+					sprite1.setPosition(i*size, j*size);  
+					window.draw(sprite1);
+				}
+			}
+			
+		}
+
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < N; j++)
+			{
+				if (TileMap[i][j] == 'w')
+				{
+					sprite4.setPosition(i*size, j*size);
+					window.draw(sprite4);
+				}
 			}
 		}
 
@@ -143,6 +168,18 @@ int main()
 
 		sprite4.setPosition(f.x*size, f.y*size);  window.draw(sprite4);
 
+        std::ostringstream ScoreString;    
+		ScoreString << score;		//занесли в нее число очков, то есть формируем строку
+		text.setString("Score: " + ScoreString.str());//задаем строку тексту и вызываем сформированную выше строку методом .str() 
+		text.setPosition(450, 100);//задаем позицию текста, отступая от центра камеры
+		window.draw(text);//рисую этот текст
+
+		if (game)
+		{
+			text1.setString("You died");
+			text1.setPosition(225, 200);
+			window.draw(text1);
+		}
 		if (game)
 		{
 			system("pause");
