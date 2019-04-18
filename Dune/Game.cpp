@@ -39,30 +39,26 @@ void Move()
 	if ((s[0].x == f.x) && (s[0].y == f.y))
 	{
 		score += 10;
-		num++; 
+		num++;
+		f.x = rand() % N;
+		f.y = rand() % M;
 		for (int i = 0; i < num; i++) {
-			if (f.x != s[i].x && f.y != s[i].y) {
-				f.x = rand() % N;
-				f.y = rand() % M;
-				break;
-			}
-			else {
+			if (f.x == s[i].x && f.y == s[i].y) {
 				f.x = rand() % N;
 				f.y = rand() % M;
 				i = 0;
 			}
 		}
 	}
+		if (s[0].x > N - 1) game = 1;  if (s[0].x < 0) game = 1;
+		if (s[0].y > M - 1) game = 1;   if (s[0].y < 0) game = 1;
 
-	if (s[0].x > N - 1) game = 1;  if (s[0].x < 0) game = 1;
-	if (s[0].y > M-1) game = 1;   if (s[0].y < 0) game = 1;
-
-	for (int i = 1; i < num; i++) {
-		if (s[0].x == s[i].x && s[0].y == s[i].y)
-		{
-			game = 1;
+		for (int i = 1; i < num; i++) {
+			if (s[0].x == s[i].x && s[0].y == s[i].y)
+			{
+				game = 1;
+			}
 		}
-	}
 }
 
 
@@ -185,10 +181,10 @@ int main()
 		sprite4.setPosition(f.x*size, f.y*size);  window.draw(sprite4);
 
         std::ostringstream ScoreString;    
-		ScoreString << score;		//занесли в нее число очков, то есть формируем строку
-		text.setString("Score: " + ScoreString.str());//задаем строку тексту и вызываем сформированную выше строку методом .str() 
-		text.setPosition(450, 100);//задаем позицию текста, отступая от центра камеры
-		window.draw(text);//рисую этот текст
+		ScoreString << score;		
+		text.setString("Score: " + ScoreString.str());
+		text.setPosition(450, 100);
+		window.draw(text);
 
 		if (game)
 		{
