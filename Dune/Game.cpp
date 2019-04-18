@@ -1,6 +1,7 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <sstream>
 #include <time.h>
+#include "menu.h"
 #include "Map.h"
 
 using namespace sf;
@@ -8,8 +9,7 @@ using namespace sf;
 int score;
 int game = 0;
 int size = 16;
-int w = size * N;
-int h = size * M;
+
 
 int dir, num = 4;
 
@@ -39,26 +39,42 @@ void Move()
 	if ((s[0].x == f.x) && (s[0].y == f.y))
 	{
 		score += 10;
-		num++;
-		f.x = rand() % N;
-		f.y = rand() % M;
+		num++; 
+		for (int i = 0; i < num; i++) {
+			if (f.x != s[i].x && f.y != s[i].y) {
+				f.x = rand() % N;
+				f.y = rand() % M;
+				break;
+			}
+			else {
+				f.x = rand() % N;
+				f.y = rand() % M;
+				i = 0;
+			}
+		}
 	}
 
 	if (s[0].x > N - 1) game = 1;  if (s[0].x < 0) game = 1;
 	if (s[0].y > M-1) game = 1;   if (s[0].y < 0) game = 1;
 
-	for (int i = 1; i < num; i++)
+	for (int i = 1; i < num; i++) {
 		if (s[0].x == s[i].x && s[0].y == s[i].y)
 		{
 			game = 1;
 		}
+	}
 }
+
+
+
 
 int main()
 {
+	
 	srand(time(0));
 
 	RenderWindow window(VideoMode(600, 400), "Dune");
+	menu(window);
 
 	Font font;
 	font.loadFromFile("arial.ttf");
