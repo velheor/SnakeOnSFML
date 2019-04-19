@@ -51,7 +51,7 @@ void menu(RenderWindow & window) {
 }
 
 
-bool startGame() {
+bool startMenu() {
 	RenderWindow window(VideoMode(600, 400), "Dune menu");
 	menu(window);
 }

@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Map.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="menu.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map1.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

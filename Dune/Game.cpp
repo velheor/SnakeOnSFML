@@ -2,7 +2,7 @@
 #include <sstream>
 #include <time.h>
 #include "menu.h"
-#include "Map.h"
+#include "map1.h"
 
 using namespace sf;
 
@@ -15,7 +15,7 @@ int dir, num = 4;
 
 struct Snake
 {
-	int x, y;
+	int x=0, y=0;
 }  s[100];
 
 struct Fruct
@@ -61,12 +61,7 @@ void Move()
 		}
 }
 
-
-
-
-int main()
-{
-	
+bool startGame() {
 	srand(time(0));
 
 	RenderWindow window(VideoMode(600, 400), "Dune");
@@ -100,7 +95,7 @@ int main()
 
 	while (window.isOpen())
 	{
-		
+
 
 		float time = clock.getElapsedTime().asSeconds();
 		clock.restart();
@@ -113,7 +108,7 @@ int main()
 				window.close();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Left)) 
+		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
 			if (dir != 2)
 			{
@@ -144,19 +139,23 @@ int main()
 
 		if (timer > delay) { timer = 0; Move(); }
 
+		if (Keyboard::isKeyPressed(Keyboard::Tab)) { return true; }
+		if (Keyboard::isKeyPressed(Keyboard::Escape)) { return false; }
+
+
 		////// draw  ///////
 		window.clear();
 
 		for (int i = 0; i < M; i++) {
 			for (int j = 0; j < N; j++)
 			{
-				if (TileMap[i][j] == ' ') 
+				if (TileMap[i][j] == ' ')
 				{
-					sprite1.setPosition(i*size, j*size);  
+					sprite1.setPosition(i*size, j*size);
 					window.draw(sprite1);
 				}
 			}
-			
+
 		}
 
 		for (int i = 0; i < M; i++) {
@@ -180,8 +179,8 @@ int main()
 
 		sprite4.setPosition(f.x*size, f.y*size);  window.draw(sprite4);
 
-        std::ostringstream ScoreString;    
-		ScoreString << score;		
+		std::ostringstream ScoreString;
+		ScoreString << score;
 		text.setString("Score: " + ScoreString.str());
 		text.setPosition(450, 100);
 		window.draw(text);
@@ -199,6 +198,20 @@ int main()
 		}
 		window.display();
 	}
+}
 
+/*void changeLevel(Level &lvl, int &numberLevel) 
+{
+	if (numberLevel == 1) { lvl.LoadFromFile("Map.tmx"); }
+	if (numberLevel == 2) { lvl.LoadFromFile("Map1.tmx"); }
+}*/
+
+void gameRunning() {//ф-ция перезагружает игру , если это необходимо
+	if (startGame()) {gameRunning(); }//принимает с какого уровня начать игру
+}
+
+int main()
+{
+	gameRunning();
 	return 0;
 }
