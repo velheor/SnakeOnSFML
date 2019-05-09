@@ -75,7 +75,6 @@ void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int
 			{
 				if (s[0].x == i && s[0].y==j && TileMap1[i][j] == 'w')
 				{
-					
 					game = 1;
 				}
 			}
@@ -134,7 +133,6 @@ void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int
 			{
 				if (s[0].x == i && s[0].y == j && TileMap3[i][j] == 'w')
 				{
-
 					game = 1;
 				}
 			}
@@ -272,8 +270,9 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 				s[i].x = 0;
 				s[i].y = 0;
 			}
+			numberLevel = 2;
 		}
-		numberLevel = 2;
+		
 		break;
 	case 40:
 		if (level[3].l == 0)
@@ -286,11 +285,11 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 				s[i].x = 0;
 				s[i].y = 0;
 			}
+			numberLevel = 3;
 		}
-		numberLevel = 3;
 		break;
 	case 60:
-		if (level[4].l = 0)
+		if (level[4].l == 0)
 		{
 			level[4].l = 1;
 			length = 4;
@@ -300,11 +299,12 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 				s[i].x = 0;
 				s[i].y = 0;
 			}
+			numberLevel = 4;
 		}
-		numberLevel = 4;
+		
 		break;
 	case 80:
-		if(level[5].l = 0)
+		if(level[5].l == 0)
 		{
 			level[5].l = 1;
 			length = 4;
@@ -314,11 +314,11 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 				s[i].x = 0;
 				s[i].y = 0;
 			}
+			numberLevel = 5;
 		}
-		numberLevel = 5;
 		break;
 	case 100:
-		if (level[6].l = 0)
+		if (level[6].l == 0)
 		{
 			level[6].l = 1;
 			length = 4;
@@ -328,8 +328,8 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 				s[i].x = 0;
 				s[i].y = 0;
 			}
+			numberLevel = 6;
 		}
-		numberLevel = 6;
 		break;
 	}
 }
@@ -360,7 +360,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 	Sprite sprite4(t4);
 
 	Clock clock;
-	float timer = 0, delay = 0.1;
+	float timer = 0, delay = 0.15;
 
 	f.x = 10;
 	f.y = 10;
@@ -609,6 +609,18 @@ void gameRunning(int &numberLevel,int score, int game, int size,int &direction, 
 {
 	if (startGame(numberLevel, score, game, size, direction, length))
 	{
+		length = 4;
+		direction = 0;
+		numberLevel = 1;
+		for (int v = 2; v < 6; v++)
+		{
+			level[v].l = 0;
+		}
+		for (int i = 0; i < length; i++)
+		{
+			s[i].x = 0;
+			s[i].y = 0;
+		}
 		gameRunning(numberLevel, score, game, size, direction, length);
 	}
 }
