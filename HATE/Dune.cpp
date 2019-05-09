@@ -22,6 +22,11 @@ struct Fruit
 	int x, y;
 } f;
 
+struct Levels
+{
+	int l;
+}level[6];
+
 void gameRunning(int &, int, int, int, int &, int &);
 
 void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int &length)
@@ -257,18 +262,73 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	switch (score)
 	{
 	case 20:
+		if (level[2].l == 0)
+		{
+			level[2].l = 1;
+			length = 4;
+			direction = 0;
+			for (int i = 0; i < length; i++)
+			{
+				s[i].x = 0;
+				s[i].y = 0;
+			}
+		}
 		numberLevel = 2;
 		break;
 	case 40:
+		if (level[3].l == 0)
+		{
+			level[3].l = 1;
+			length = 4;
+			direction = 0;
+			for (int i = 0; i < length; i++)
+			{
+				s[i].x = 0;
+				s[i].y = 0;
+			}
+		}
 		numberLevel = 3;
 		break;
 	case 60:
+		if (level[4].l = 0)
+		{
+			level[4].l = 1;
+			length = 4;
+			direction = 0;
+			for (int i = 0; i < length; i++)
+			{
+				s[i].x = 0;
+				s[i].y = 0;
+			}
+		}
 		numberLevel = 4;
 		break;
 	case 80:
+		if(level[5].l = 0)
+		{
+			level[5].l = 1;
+			length = 4;
+			direction = 0;
+			for (int i = 0; i < length; i++)
+			{
+				s[i].x = 0;
+				s[i].y = 0;
+			}
+		}
 		numberLevel = 5;
 		break;
 	case 100:
+		if (level[6].l = 0)
+		{
+			level[6].l = 1;
+			length = 4;
+			direction = 0;
+			for (int i = 0; i < length; i++)
+			{
+				s[i].x = 0;
+				s[i].y = 0;
+			}
+		}
 		numberLevel = 6;
 		break;
 	}
@@ -549,26 +609,24 @@ void gameRunning(int &numberLevel,int score, int game, int size,int &direction, 
 {
 	if (startGame(numberLevel, score, game, size, direction, length))
 	{
-		length = 4;
-		direction = 0;
-		for (int i = 0; i < length; i++)
-		{
-			s[i].x = 0;
-			s[i].y = 0;
-		}
 		gameRunning(numberLevel, score, game, size, direction, length);
 	}
 }
 
 int main()
 {
-	int score = 50;
+	int score = 0;
 	int game = 0;
 	int size = 16;
 
 	int direction = 0, length = 4;
 
 	int numberLevel = 1;
+
+	for (int v = 2; v < 6; v++)
+	{
+		level[v].l = 0;
+	}
 
 	gameRunning(numberLevel, score, game, size, direction, length);
 	return 0;
