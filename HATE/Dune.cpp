@@ -4,9 +4,13 @@
 #include "Menu.h"
 #include "Map1.h"
 #include "Map2.h"
+#include "Map3.h"
+#include "Map4.h"
+#include "Map5.h"
+#include "Map6.h"
+
 
 using namespace sf;
-
 
 struct Snake
 {
@@ -18,9 +22,9 @@ struct Fruit
 	int x, y;
 } f;
 
-void gameRunning(int, int, int, int, int &, int &);
+void gameRunning(int &, int, int, int, int &, int &);
 
-void Move(int numberLevel, int &score,int &game, int &size, int &direction, int &length)
+void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int &length)
 {
 	for (int i = length; i > 0; --i) 
 	{
@@ -118,6 +122,124 @@ void Move(int numberLevel, int &score,int &game, int &size, int &direction, int 
 			}
 		}
 		break;
+	case 3:
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (s[0].x == i && s[0].y == j && TileMap3[i][j] == 'w')
+				{
+
+					game = 1;
+				}
+			}
+		}
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				for (int v = 0; v < length; v++)
+				{
+					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap3[i][j] == 'w'))
+					{
+						f.x = rand() % width;
+						f.y = rand() % height;
+						v = 0;
+						i = 0;
+						j = 0;
+					}
+				}
+			}
+		}
+		break;
+	case 4:
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (s[0].x == i && s[0].y == j && TileMap4[i][j] == 'w')
+				{
+					game = 1;
+				}
+			}
+		}
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				for (int v = 0; v < length; v++)
+				{
+					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap4[i][j] == 'w'))
+					{
+						f.x = rand() % width;
+						f.y = rand() % height;
+						v = 0;
+						i = 0;
+						j = 0;
+					}
+				}
+			}
+		}
+		break;
+	case 5:
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (s[0].x == i && s[0].y == j && TileMap5[i][j] == 'w')
+				{
+
+					game = 1;
+				}
+			}
+		}
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				for (int v = 0; v < length; v++)
+				{
+					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap1[i][j] == 'w'))
+					{
+						f.x = rand() % width;
+						f.y = rand() % height;
+						v = 0;
+						i = 0;
+						j = 0;
+					}
+				}
+			}
+		}
+		break;
+	case 6:
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				if (s[0].x == i && s[0].y == j && TileMap6[i][j] == 'w')
+				{
+					game = 1;
+				}
+			}
+		}
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				for (int v = 0; v < length; v++)
+				{
+					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap2[i][j] == 'w'))
+					{
+						f.x = rand() % width;
+						f.y = rand() % height;
+						v = 0;
+						i = 0;
+						j = 0;
+					}
+				}
+			}
+		}
+		break;
 	}
 	
 	for (int i = 1; i < length; i++) 
@@ -134,16 +256,24 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 {
 	switch (score)
 	{
-	case 0:
-
-		numberLevel = 1;
-		break;
 	case 20:
-
 		numberLevel = 2;
+		break;
+	case 40:
+		numberLevel = 3;
+		break;
+	case 60:
+		numberLevel = 4;
+		break;
+	case 80:
+		numberLevel = 5;
+		break;
+	case 100:
+		numberLevel = 6;
 		break;
 	}
 }
+
 
 bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,int &length) 
 {
@@ -197,6 +327,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				direction = 1;
 			}
 		}
+
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
 			if (direction != 1)
@@ -204,6 +335,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				direction = 2;
 			}
 		}
+
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 		{
 			if (direction != 0)
@@ -211,6 +343,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				direction = 3;
 			}
 		}
+
 		if (Keyboard::isKeyPressed(Keyboard::Down))
 		{
 			if (direction != 3)
@@ -219,20 +352,23 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 			}
 		}
 
+		if (Keyboard::isKeyPressed(Keyboard::Tab))
+		{
+			return true;
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
+		{
+			return false;
+		}
+
 		if (timer > delay)
-		{ 
-			timer = 0; 
+		{
+			timer = 0;
 			Move(numberLevel, score, game, size, direction, length);
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Tab)) 
-		{
-			return true; 
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Escape)) 
-		{ 
-			return false;
-		}
+
 
 
 		////// draw  ///////
@@ -240,9 +376,9 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 
 		switch (numberLevel) {
 		case 1:
-			for (int i = 0; i < height; i++) 
+			for (int i = 0; i < height; i++)
 			{
-				for (int j = 0; j < width; j++) 
+				for (int j = 0; j < width; j++)
 				{
 					if (TileMap1[i][j] == ' ')
 					{
@@ -254,13 +390,13 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 			}
 			for (int i = 0; i < height; i++)
 			{
-				for (int j = 0; j < width; j++) 
+				for (int j = 0; j < width; j++)
 				{
 					if (TileMap1[i][j] == 'w')
 					{
 						sprite4.setPosition(i*size, j*size);
 						window.draw(sprite4);
-						
+
 					}
 				}
 			}
@@ -281,6 +417,98 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap2[i][j] == 'w')
+					{
+						sprite4.setPosition(i*size, j*size);
+						window.draw(sprite4);
+					}
+				}
+			}
+			break;
+		case 3:
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap3[i][j] == ' ')
+					{
+						sprite1.setPosition(i*size, j*size);
+						window.draw(sprite1);
+					}
+				}
+
+			}
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap3[i][j] == 'w')
+					{
+						sprite4.setPosition(i*size, j*size);
+						window.draw(sprite4);
+					}
+				}
+			}
+			break;
+		case 4:
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap4[i][j] == ' ')
+					{
+						sprite1.setPosition(i*size, j*size);
+						window.draw(sprite1);
+					}
+				}
+
+			}
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap4[i][j] == 'w')
+					{
+						sprite4.setPosition(i*size, j*size);
+						window.draw(sprite4);
+					}
+				}
+			}
+			break;
+		case 5:
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap5[i][j] == ' ')
+					{
+						sprite1.setPosition(i*size, j*size);
+						window.draw(sprite1);
+					}
+				}
+
+			}
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap5[i][j] == 'w')
+					{
+						sprite4.setPosition(i*size, j*size);
+						window.draw(sprite4);
+					}
+				}
+			}
+			break;
+		case 6:
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap6[i][j] == ' ')
+					{
+						sprite1.setPosition(i*size, j*size);
+						window.draw(sprite1);
+					}
+				}
+
+			}
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++)
+				{
+					if (TileMap6[i][j] == 'w')
 					{
 						sprite4.setPosition(i*size, j*size);
 						window.draw(sprite4);
@@ -317,7 +545,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 	}
 }
 
-void gameRunning(int numberLevel,int score, int game, int size,int &direction, int &length)
+void gameRunning(int &numberLevel,int score, int game, int size,int &direction, int &length)
 {
 	if (startGame(numberLevel, score, game, size, direction, length))
 	{
@@ -334,7 +562,7 @@ void gameRunning(int numberLevel,int score, int game, int size,int &direction, i
 
 int main()
 {
-	int score = 0;
+	int score = 50;
 	int game = 0;
 	int size = 16;
 

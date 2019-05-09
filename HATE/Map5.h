@@ -1,11 +1,10 @@
-﻿#pragma once
+#pragma once
 #include <iostream>
 #include <sstream>
 #include <SFML\Graphics.hpp>
-const int height = 25;//размер карты высота
-const int width = 25;//размер карты ширина 
 
-sf::String TileMap1[height] = {
+
+sf::String TileMap5[height] = {
 	"                         ",
 	"                         ",
 	"                         ",
@@ -18,17 +17,17 @@ sf::String TileMap1[height] = {
 	"                         ",
 	"                         ",
 	"                         ",
+	"        w                ",
+	"       wwwwwwwwwwwww     ",
 	"                         ",
+	"        wwwwwwwwwwww     ",
+	"       w            w    ",
+	"       w            w    ",
+	"        wwwwwwwwwwww     ",
 	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
-	"                         ",
+	"       w       w w       ",
+	"       w     w     w     ",
+	"       w     w     w     ",
+	"       wwwwwwwwwwwww     ",
 	"                         ",
 };

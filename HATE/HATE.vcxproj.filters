@@ -29,5 +29,17 @@
     <ClInclude Include="Map2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Map3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

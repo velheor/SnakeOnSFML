@@ -137,6 +137,10 @@
   <ItemGroup>
     <ClInclude Include="Map1.h" />
     <ClInclude Include="Map2.h" />
+    <ClInclude Include="Map3.h" />
+    <ClInclude Include="Map4.h" />
+    <ClInclude Include="Map5.h" />
+    <ClInclude Include="Map6.h" />
     <ClInclude Include="Menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
