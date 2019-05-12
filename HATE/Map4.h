@@ -5,7 +5,7 @@
 
 sf::String TileMap4[height] = {
 	"                         ",
-	"   w w w w w w w w w w   ",
+	"   w   w         w   w   ",
 	"                         ",
 	"   w   w         w   w   ",
 	"                         ",
@@ -27,6 +27,6 @@ sf::String TileMap4[height] = {
 	"                         ",
 	"   w   w         w   w   ",
 	"                         ",
-	"   w w w w w w w w w w   ",
+	"   w   w         w   w   ",
 	"                         ",
 };

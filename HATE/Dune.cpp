@@ -1,4 +1,5 @@
 ﻿#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <sstream>
 #include <time.h>
 #include "Menu.h"
@@ -342,22 +343,38 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 	RenderWindow window(VideoMode(600, 400), "Dune");
 	menu(window);
 
+	Image icon;
+	icon.loadFromFile("images/icon.png");
+	window.setIcon(32, 32, icon.getPixelsPtr());
+
 	Font font;
 	font.loadFromFile("arial.ttf");
 	Text text("", font, 20);
 	text.setFillColor(Color::White);
 	text.setStyle(sf::Text::Bold);
+	Text text1("", font, 20);
+	text1.setFillColor(Color::White);
+	text1.setStyle(sf::Text::Bold);
 
-	Texture t1, t2, t3, t4;
-	t1.loadFromFile("images/White.png");
-	t2.loadFromFile("images/Head.png");
-	t3.loadFromFile("images/Tail.png");
+	Texture t1, t2, t3, t4, t5, t6;
+	t1.loadFromFile("images/sand.png");
+	t2.loadFromFile("images/head.png");
+	t3.loadFromFile("images/tail.png");
 	t4.loadFromFile("images/red.png");
+	t5.loadFromFile("images/walls.png");
+	t6.loadFromFile("images/face.png");
 
 	Sprite sprite1(t1);
 	Sprite sprite2(t2);
 	Sprite sprite3(t3);
 	Sprite sprite4(t4);
+	Sprite sprite5(t5);
+	Sprite sprite6(t6);
+
+
+	Music music;
+	music.openFromFile("main.ogg");
+	music.play();
 
 	Clock clock;
 	float timer = 0, delay = 0.15;
@@ -429,9 +446,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 		}
 
 
-
-
-		////// draw  ///////
+		
 		window.clear();
 
 		switch (numberLevel) {
@@ -454,15 +469,15 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				{
 					if (TileMap1[i][j] == 'w')
 					{
-						sprite4.setPosition(i*size, j*size);
-						window.draw(sprite4);
-
+						sprite5.setPosition(i*size, j*size);
+						window.draw(sprite5);
 					}
 				}
 			}
 			break;
 		case 2:
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++) 
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap2[i][j] == ' ')
@@ -473,19 +488,21 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 
 			}
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++)
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap2[i][j] == 'w')
 					{
-						sprite4.setPosition(i*size, j*size);
-						window.draw(sprite4);
+						sprite5.setPosition(i*size, j*size);
+						window.draw(sprite5);
 					}
 				}
 			}
 			break;
 		case 3:
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++)
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap3[i][j] == ' ')
@@ -496,19 +513,21 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 
 			}
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++)
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap3[i][j] == 'w')
 					{
-						sprite4.setPosition(i*size, j*size);
-						window.draw(sprite4);
+						sprite5.setPosition(i*size, j*size);
+						window.draw(sprite5);
 					}
 				}
 			}
 			break;
 		case 4:
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++)
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap4[i][j] == ' ')
@@ -519,19 +538,21 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 
 			}
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++) 
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap4[i][j] == 'w')
 					{
-						sprite4.setPosition(i*size, j*size);
-						window.draw(sprite4);
+						sprite5.setPosition(i*size, j*size);
+						window.draw(sprite5);
 					}
 				}
 			}
 			break;
 		case 5:
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++)
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap5[i][j] == ' ')
@@ -542,19 +563,21 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 
 			}
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++)
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap5[i][j] == 'w')
 					{
-						sprite4.setPosition(i*size, j*size);
-						window.draw(sprite4);
+						sprite5.setPosition(i*size, j*size);
+						window.draw(sprite5);
 					}
 				}
 			}
 			break;
 		case 6:
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++) 
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap6[i][j] == ' ')
@@ -565,13 +588,14 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 
 			}
-			for (int i = 0; i < height; i++) {
+			for (int i = 0; i < height; i++) 
+			{
 				for (int j = 0; j < width; j++)
 				{
 					if (TileMap6[i][j] == 'w')
 					{
-						sprite4.setPosition(i*size, j*size);
-						window.draw(sprite4);
+						sprite5.setPosition(i*size, j*size);
+						window.draw(sprite5);
 					}
 				}
 			}
@@ -589,11 +613,19 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 		sprite4.setPosition(f.x*size, f.y*size);
 		window.draw(sprite4);
 
+		sprite6.setPosition(400, 0);
+		window.draw(sprite6);
+
 		std::ostringstream ScoreString;
+		std::ostringstream LevelString;
 		ScoreString << score;
 		text.setString("Score: " + ScoreString.str());
 		text.setPosition(450, 100);
 		window.draw(text);
+		LevelString << numberLevel;
+		text1.setString("Level: " + LevelString.str());
+		text1.setPosition(450, 150);
+		window.draw(text1);
 
 		if (game)
 		{
@@ -630,7 +662,6 @@ int main()
 	int score = 0;
 	int game = 0;
 	int size = 16;
-
 	int direction = 0, length = 4;
 
 	int numberLevel = 1;
