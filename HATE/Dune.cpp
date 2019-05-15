@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <sstream>
 #include <time.h>
+#include <windows.h>
 #include "Menu.h"
 #include "Map1.h"
 #include "Map2.h"
@@ -29,6 +30,26 @@ struct Levels
 }level[6];
 
 void gameRunning(int &, int, int, int, int &, int &);
+
+int main();
+
+void end(RenderWindow & window)
+{
+	Texture end;
+	end.loadFromFile("images/died.png");
+	Sprite sprite1(end);
+	window.clear();
+
+	Music music;
+	music.openFromFile("died.ogg");
+	music.play();
+	sprite1.setPosition(0, 0);
+	window.draw(sprite1);
+	window.display();
+	Sleep(7500);
+	window.close();
+	main();
+}
 
 void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int &length)
 {
@@ -203,7 +224,7 @@ void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int
 			{
 				for (int v = 0; v < length; v++)
 				{
-					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap1[i][j] == 'w'))
+					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap5[i][j] == 'w'))
 					{
 						f.x = rand() % width;
 						f.y = rand() % height;
@@ -232,7 +253,7 @@ void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int
 			{
 				for (int v = 0; v < length; v++)
 				{
-					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap2[i][j] == 'w'))
+					if ((f.x == s[v].x && f.y == s[v].y) || (f.x == i && f.y == j && TileMap6[i][j] == 'w'))
 					{
 						f.x = rand() % width;
 						f.y = rand() % height;
@@ -371,21 +392,20 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 	Sprite sprite5(t5);
 	Sprite sprite6(t6);
 
-
-	Music music;
-	music.openFromFile("main.ogg");
-	music.play();
+	Music main;
+	main.openFromFile("main.ogg");
+	main.play();
 
 	Clock clock;
 	float timer = 0, delay = 0.15;
 
-	f.x = 10;
-	f.y = 10;
+	f.x = rand() % width;
+	f.y = rand() % height;
 
 	while (window.isOpen())
 	{
 		changeLevel(numberLevel, score, game, size, direction, length);
-
+		
 		float time = clock.getElapsedTime().asSeconds();
 		clock.restart();
 		timer += time;
@@ -475,6 +495,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 			}
 			break;
+
 		case 2:
 			for (int i = 0; i < height; i++) 
 			{
@@ -500,6 +521,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 			}
 			break;
+
 		case 3:
 			for (int i = 0; i < height; i++)
 			{
@@ -601,6 +623,7 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 			}
 			break;
 		}
+
 		sprite2.setPosition(s[0].x*size, s[0].y*size); 
 		window.draw(sprite2);
 
@@ -618,10 +641,12 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 
 		std::ostringstream ScoreString;
 		std::ostringstream LevelString;
+
 		ScoreString << score;
 		text.setString("Score: " + ScoreString.str());
 		text.setPosition(450, 100);
 		window.draw(text);
+
 		LevelString << numberLevel;
 		text1.setString("Level: " + LevelString.str());
 		text1.setPosition(450, 150);
@@ -629,8 +654,8 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 
 		if (game)
 		{
-			system("pause");
-			window.close();
+			main.stop();
+			end(window);
 		}
 		window.display();
 		window.clear();
@@ -666,11 +691,18 @@ int main()
 
 	int numberLevel = 1;
 
-	for (int v = 2; v < 6; v++)
+	for (int i = 0; i < length; i++)
+	{
+		s[i].x = 0;
+		s[i].y = 0;
+	}
+
+	for (int v = 2; v < 6; v++)y
 	{
 		level[v].l = 0;
 	}
 
 	gameRunning(numberLevel, score, game, size, direction, length);
+
 	return 0;
 }

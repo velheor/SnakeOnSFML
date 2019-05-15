@@ -3,8 +3,8 @@
 
 using namespace sf;
 
-void menu(RenderWindow & window) {
-
+void menu(RenderWindow & window) 
+{
 	Texture menuTexture1, menuTexture2, menuTexture3, menuBackground;
 	menuTexture1.loadFromFile("images/111.png");
 	menuTexture2.loadFromFile("images/222.png");
@@ -12,6 +12,10 @@ void menu(RenderWindow & window) {
 	menuBackground.loadFromFile("images/background.jpg");
 	Sprite menu1(menuTexture1), menu2(menuTexture2), menu3(menuTexture3), menuBg(menuBackground);
 	
+	Image icon;
+	icon.loadFromFile("images/icon.png");
+	window.setIcon(32, 32, icon.getPixelsPtr());
+
 	Music menu;
 	menu.openFromFile("menu.ogg");
 	menu.play();
@@ -71,11 +75,4 @@ void menu(RenderWindow & window) {
 
 		window.display();
 	}
-	////////////////////////////////////////////////////
-}
-
-
-bool startMenu() {
-	RenderWindow window(VideoMode(600, 400), "Dune menu");
-	menu(window);
 }
