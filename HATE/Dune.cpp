@@ -1,8 +1,9 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <sstream>
+#include <fstream>
 #include <time.h>
 #include <windows.h>
+#include <iomanip>
 #include "Menu.h"
 #include "Map1.h"
 #include "Map2.h"
@@ -13,6 +14,8 @@
 
 
 using namespace sf;
+
+using namespace std;
 
 struct Snake
 {
@@ -29,9 +32,12 @@ struct Levels
 	int l;
 }level[6];
 
-void gameRunning(int &, int, int, int, int &, int &);
-
 int main();
+
+void sleep()
+{
+	Sleep(500);
+}
 
 void end(RenderWindow & window)
 {
@@ -49,6 +55,48 @@ void end(RenderWindow & window)
 	Sleep(7500);
 	window.close();
 	main();
+}
+
+void saving(int &numberLevel, int &score, int &game, int &direction, int &length)
+{
+	ofstream saves;
+	saves.open("saves.txt");
+	saves << s[0].x << endl;
+	saves << s[0].y << endl;
+	saves << numberLevel << endl;
+	saves << score << endl;
+	saves << game << endl;
+	saves << direction << endl;
+	saves << length << endl;
+	
+	for (int i = 1; i < length; i++)
+	{
+		saves << s[i].x << endl;
+		saves << s[i].y << endl;
+	}
+	
+	saves.close();
+}
+
+void loading(int &numberLevel, int &score, int &game, int &direction, int &length)
+{
+	ifstream saves;
+	saves.open("saves.txt");
+
+	saves >> s[0].x;
+	saves >> s[0].y;
+	saves >> numberLevel;
+	saves >> score;
+	saves >> game;
+	saves >> direction;
+	saves >> length;
+	for (int i = 1; i < length; i++)
+	{
+		saves >> s[i].x;
+		saves >> s[i].y;
+	}
+
+	saves.close();
 }
 
 void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int &length)
@@ -284,6 +332,7 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	case 20:
 		if (level[2].l == 0)
 		{
+			sleep();
 			level[2].l = 1;
 			length = 4;
 			direction = 0;
@@ -299,6 +348,7 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	case 40:
 		if (level[3].l == 0)
 		{
+			sleep();
 			level[3].l = 1;
 			length = 4;
 			direction = 0;
@@ -313,6 +363,7 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	case 60:
 		if (level[4].l == 0)
 		{
+			sleep();
 			level[4].l = 1;
 			length = 4;
 			direction = 0;
@@ -328,6 +379,7 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	case 80:
 		if(level[5].l == 0)
 		{
+			sleep();
 			level[5].l = 1;
 			length = 4;
 			direction = 0;
@@ -342,6 +394,7 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	case 100:
 		if (level[6].l == 0)
 		{
+			sleep();
 			level[6].l = 1;
 			length = 4;
 			direction = 0;
@@ -357,12 +410,16 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 }
 
 
-bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,int &length) 
+void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,int &length) 
 {
 	srand(time(0));
 
 	RenderWindow window(VideoMode(600, 400), "Dune");
-	menu(window);
+
+	if (menu(window)) 
+	{
+		loading(numberLevel, score, game, direction, length);
+	}
 
 	Image icon;
 	icon.loadFromFile("images/icon.png");
@@ -451,21 +508,22 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 
 		if (Keyboard::isKeyPressed(Keyboard::Tab))
 		{
-			return true;
+			saving(numberLevel, score, game, direction, length);
 		}
+
+
 
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
-			return false;
+			window.close();
 		}
+
 
 		if (timer > delay)
 		{
 			timer = 0;
 			Move(numberLevel, score, game, size, direction, length);
 		}
-
-
 		
 		window.clear();
 
@@ -662,25 +720,6 @@ bool startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 	}
 }
 
-void gameRunning(int &numberLevel,int score, int game, int size,int &direction, int &length)
-{
-	if (startGame(numberLevel, score, game, size, direction, length))
-	{
-		length = 4;
-		direction = 0;
-		numberLevel = 1;
-		for (int v = 2; v < 6; v++)
-		{
-			level[v].l = 0;
-		}
-		for (int i = 0; i < length; i++)
-		{
-			s[i].x = 0;
-			s[i].y = 0;
-		}
-		gameRunning(numberLevel, score, game, size, direction, length);
-	}
-}
 
 int main()
 {
@@ -697,12 +736,12 @@ int main()
 		s[i].y = 0;
 	}
 
-	for (int v = 2; v < 6; v++)y
+	for (int v = 2; v < 6; v++)
 	{
 		level[v].l = 0;
 	}
 
-	gameRunning(numberLevel, score, game, size, direction, length);
+	startGame(numberLevel, score, game, size, direction, length);
 
 	return 0;
 }

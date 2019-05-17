@@ -3,7 +3,7 @@
 
 using namespace sf;
 
-void menu(RenderWindow & window) 
+bool menu(RenderWindow & window) 
 {
 	Texture menuTexture1, menuTexture2, menuTexture3, menuBackground;
 	menuTexture1.loadFromFile("images/111.png");
@@ -47,7 +47,8 @@ void menu(RenderWindow & window)
 		}
 		if (IntRect(100, 150, 300, 50).contains(Mouse::getPosition(window)))
 		{ 
-			menu3.setColor(Color::Blue); menuNum = 3; 
+			menu3.setColor(Color::Blue); 
+			menuNum = 3; 
 		}
 
 		if (Mouse::isButtonPressed(Mouse::Left))
@@ -55,10 +56,12 @@ void menu(RenderWindow & window)
 			if (menuNum == 1)
 			{
 				isMenu = false;
+				return false;
 			} 
 			if (menuNum == 2)
 			{
-				isMenu = false; 
+				isMenu = false;
+				return true;
 			}
 			if (menuNum == 3) 
 			{
