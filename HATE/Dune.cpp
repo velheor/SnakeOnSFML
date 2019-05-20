@@ -30,13 +30,13 @@ struct Fruit
 struct Levels
 {
 	int l;
-}level[6];
+}level[7];
 
 int main();
 
 void sleep()
 {
-	Sleep(500);
+	Sleep(15000);
 }
 
 void end(RenderWindow & window)
@@ -143,7 +143,7 @@ void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int
 		{
 			for (int j = 0; j < width; j++)
 			{
-				if (s[0].x == i && s[0].y==j && TileMap1[i][j] == 'w')
+				if (s[0].x == i && s[0].y == j && TileMap1[i][j] == 'w')
 				{
 					game = 1;
 				}
@@ -325,13 +325,48 @@ void Move(int &numberLevel, int &score,int &game, int &size, int &direction, int
 }
 
 
-void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direction, int &length)
+void changeLevel(RenderWindow & window, int &numberLevel, int &score, int &game, int &size, int &direction, int &length)
 {
+	Texture c1, c2, c3, c4, c5, c6,c12;
+	c1.loadFromFile("images/chapter1.png");
+	c12.loadFromFile("images/chapter1.1.png");
+	c2.loadFromFile("images/chapter2.png");
+	c3.loadFromFile("images/chapter3.png");
+	c4.loadFromFile("images/chapter4.png");
+	c5.loadFromFile("images/chapter5.png");
+	c6.loadFromFile("images/chapter6.png");
+
+	Sprite sprite1(c1);
+	Sprite sprite2(c2);
+	Sprite sprite3(c3);
+	Sprite sprite4(c4);
+	Sprite sprite5(c5);
+	Sprite sprite6(c6);
+	Sprite sprite7(c12);
+
 	switch (score)
 	{
+	case 0:
+		if (level[1].l == 0)
+		{
+			sprite1.setPosition(0,0);
+			window.draw(sprite1);
+			window.display();
+			sleep();
+			sprite7.setPosition(0, 0);
+			window.draw(sprite7);
+			window.display();
+			sleep();
+			level[1].l = 1;
+		}
+		break;
+
 	case 20:
 		if (level[2].l == 0)
 		{
+			sprite2.setPosition(0, 0);
+			window.draw(sprite2);
+			window.display();
 			sleep();
 			level[2].l = 1;
 			length = 4;
@@ -343,11 +378,14 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 			}
 			numberLevel = 2;
 		}
-		
 		break;
+
 	case 40:
 		if (level[3].l == 0)
 		{
+			sprite3.setPosition(0, 0);
+			window.draw(sprite3);
+			window.display();
 			sleep();
 			level[3].l = 1;
 			length = 4;
@@ -363,6 +401,9 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	case 60:
 		if (level[4].l == 0)
 		{
+			sprite4.setPosition(0, 0);
+			window.draw(sprite4);
+			window.display();
 			sleep();
 			level[4].l = 1;
 			length = 4;
@@ -374,11 +415,14 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 			}
 			numberLevel = 4;
 		}
-		
+
 		break;
 	case 80:
-		if(level[5].l == 0)
+		if (level[5].l == 0)
 		{
+			sprite5.setPosition(0, 0);
+			window.draw(sprite5);
+			window.display();
 			sleep();
 			level[5].l = 1;
 			length = 4;
@@ -394,6 +438,9 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 	case 100:
 		if (level[6].l == 0)
 		{
+			sprite6.setPosition(0, 0);
+			window.draw(sprite6);
+			window.display();
 			sleep();
 			level[6].l = 1;
 			length = 4;
@@ -408,6 +455,7 @@ void changeLevel(int &numberLevel, int &score, int &game, int &size, int &direct
 		break;
 	}
 }
+
 
 
 void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,int &length) 
@@ -461,8 +509,8 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 
 	while (window.isOpen())
 	{
-		changeLevel(numberLevel, score, game, size, direction, length);
-		
+		changeLevel(window, numberLevel, score, game, size, direction, length);
+
 		float time = clock.getElapsedTime().asSeconds();
 		clock.restart();
 		timer += time;
@@ -511,23 +559,21 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 			saving(numberLevel, score, game, direction, length);
 		}
 
-
-
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
 			window.close();
 		}
-
 
 		if (timer > delay)
 		{
 			timer = 0;
 			Move(numberLevel, score, game, size, direction, length);
 		}
-		
+
 		window.clear();
 
-		switch (numberLevel) {
+		switch (numberLevel)
+		{
 		case 1:
 			for (int i = 0; i < height; i++)
 			{
@@ -555,7 +601,7 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 			break;
 
 		case 2:
-			for (int i = 0; i < height; i++) 
+			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
 				{
@@ -579,7 +625,6 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 			}
 			break;
-
 		case 3:
 			for (int i = 0; i < height; i++)
 			{
@@ -618,7 +663,7 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 
 			}
-			for (int i = 0; i < height; i++) 
+			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
 				{
@@ -656,7 +701,7 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 			}
 			break;
 		case 6:
-			for (int i = 0; i < height; i++) 
+			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
 				{
@@ -668,7 +713,7 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 				}
 
 			}
-			for (int i = 0; i < height; i++) 
+			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
 				{
@@ -682,12 +727,12 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 			break;
 		}
 
-		sprite2.setPosition(s[0].x*size, s[0].y*size); 
+		sprite2.setPosition(s[0].x*size, s[0].y*size);
 		window.draw(sprite2);
 
 		for (int i = 1; i < length; i++)
 		{
-			sprite3.setPosition(s[i].x*size, s[i].y*size); 
+			sprite3.setPosition(s[i].x*size, s[i].y*size);
 			window.draw(sprite3);
 		}
 
@@ -697,8 +742,8 @@ void startGame(int &numberLevel,int &score,int &game,int &size,int &direction,in
 		sprite6.setPosition(400, 0);
 		window.draw(sprite6);
 
-		std::ostringstream ScoreString;
-		std::ostringstream LevelString;
+		ostringstream ScoreString;
+		ostringstream LevelString;
 
 		ScoreString << score;
 		text.setString("Score: " + ScoreString.str());
@@ -736,7 +781,7 @@ int main()
 		s[i].y = 0;
 	}
 
-	for (int v = 2; v < 6; v++)
+	for (int v = 1; v <= 6; v++)
 	{
 		level[v].l = 0;
 	}
